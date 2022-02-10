@@ -1,9 +1,7 @@
 from django.urls import path
-from . import views
+from .views import index, GetVisit
+
 urlpatterns = [
-    path('', views.index),
-    path('addnew', views.addnew),
-    path('edit/<int:id>', views.edit),
-    path('update/<int:id>', views.update),
-    path('delete/<int:id>', views.destroy),
+    path('', index, name='index'),
+    path('visit/<str:slug>', GetVisit, name='visit')
 ]

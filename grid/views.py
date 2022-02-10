@@ -1,44 +1,16 @@
 from django.shortcuts import render, redirect
-from .forms import EmployeeForm
-from .models import Employee
-
-
-# Create your views here.
-
-def addnew(request):
-    if request.method == "POST":
-        form = EmployeeForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/')
-            except:
-                pass
-    else:
-        form = EmployeeForm()
-    return render(request, 'index.html', {'form': form})
+from django.views.generic import DetailView
+from .models import Employee, Visits
+from datetime import date
 
 
 def index(request):
     employees = Employee.objects.all()
-    return render(request, "show.html", {'employees': employees})
+    visit = Visits.objects.filter(date=date.today())
+    return render(request, "show.html", {'employees': employees, 'visits': visit})
 
 
-def edit(request, id):
-    employee = Employee.objects.get(id=id)
-    return render(request, 'edit.html', {'employee': employee})
-
-
-def update(request, id):
-    employee = Employee.objects.get(id=id)
-    form = EmployeeForm(request.POST, instance=employee)
-    if form.is_valid():
-        form.save()
-        return redirect("/")
-    return render(request, 'edit.html', {'employee': employee})
-
-
-def destroy(request, id):
-    employee = Employee.objects.get(id=id)
-    employee.delete()
-    return redirect("/")
+def GetVisit(request, slug):
+    visit = Visits.objects.filter(user__slug=slug)
+    user = Employee.objects.get(slug=slug)
+    return render(request, 'get_visits.html', {'visits': visit, 'user': user})
