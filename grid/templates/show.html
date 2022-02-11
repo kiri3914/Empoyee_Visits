@@ -15,8 +15,10 @@
             <th>ПРИЧИНА</th>
             </thead>
             <tbody>
+
             {% for visit in visits %}
-            <h3>{{ visit.date }}</h3>
+                <h3>{{ visit.date }}</h3>
+
             <tr>
 
                 <td><a href="{{ visit.user.get_absolute_url }}">{{ visit.user.name }}</a></td>
@@ -29,7 +31,7 @@
             </tbody>
         </table>
     </div>
-
+<a href="{% url 'export_excel' %}">Export all users</a>
     <!--   ВСЕ СОТРУДНИКИ -->
     <h4>ВСЕ СОТРУДНИКИ</h4>
     <div class="table-responsive">

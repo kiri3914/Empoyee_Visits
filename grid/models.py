@@ -2,11 +2,22 @@ from django.db import models
 from django.urls import reverse
 
 
+class Positions(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Employee(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=500)
+    position = models.ForeignKey(Positions, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images')
     slug = models.SlugField(unique=True)
+    steck = models.CharField(max_length=1000)
 
     def get_absolute_url(self):
         return reverse('visit', kwargs={'slug': self.slug})
@@ -32,3 +43,4 @@ class Visits(models.Model):
     class Meta:
         ordering = ['-date']
         db_table = 'visit'
+
