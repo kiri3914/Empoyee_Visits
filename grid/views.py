@@ -1,13 +1,23 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
-from .models import Employee, Visits
 from datetime import date
+
+from .models import Employee, Visits
+from .forms import DateForm
+
 
 
 def index(request):
     employees = Employee.objects.all()
+
     visit = Visits.objects.filter(date=date.today())
-    return render(request, "show.html", {'employees': employees, 'visits': visit})
+    if request.method == 'POST':
+        form = DateForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = DateForm()
+    return render(request, "show.html", {'employees': employees, 'visits': visit,'form': form})
 
 
 def GetVisit(request, slug):
