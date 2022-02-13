@@ -4,10 +4,17 @@
 {% block content %}
 <div class="col-md-12">
     <!--     за сегодня -->
+    <br>
+    <form action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        <input type="date" class="form-submit" name="day" id="day"
+               placeholder="Todays Date" required>
+        <button>ПРОВЕРИТЬ</button>
+    </form>
+
     <div class="table-responsive">
         <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
             <thead>
-
             <th>ИМЯ</th>
             <th>ПООСЕТИЛ(А)</th>
             <th>ВРЕМЯ ПРИХОДА</th>
@@ -15,9 +22,15 @@
             <th>ПРИЧИНА</th>
             </thead>
             <tbody>
+<<<<<<< HEAD
 
             {% for visit in visits %}
                 <h3>{{ visit.date }}</h3>
+=======
+            <h3>{{ day }}</h3>
+            <a href="{% url 'export_excel' %}">Export all visits</a>
+            {% for visit in visits %}
+>>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
 
             <tr>
 

@@ -30,7 +30,7 @@ class Employee(models.Model):
 
 
 class Visits(models.Model):
-    date = models.DateField(auto_now_add=False)
+    date = models.DateField(auto_created=False)
     user = models.ForeignKey(Employee, on_delete=models.CASCADE)
     visited = models.BooleanField(default=False)
     time_start = models.TimeField(auto_now_add=False, blank=True, null=True)

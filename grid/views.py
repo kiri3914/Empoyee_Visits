@@ -1,15 +1,31 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView
+from datetime import date as d
+import xlwt
+
 from .models import Employee, Visits
+<<<<<<< HEAD
 from datetime import date
 from django.http import HttpResponse
 import xlwt
+=======
+from .forms import DateForm
+>>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
 
 
 def index(request):
+    day = d.today()
     employees = Employee.objects.all()
-    visit = Visits.objects.filter(date=date.today())
-    return render(request, "show.html", {'employees': employees, 'visits': visit})
+    visit = Visits.objects.filter(date=day)
+    if request.method == 'POST':
+        day = request.POST['day']
+        visit = Visits.objects.filter(date=day)
+    context = {
+        'employees': employees,
+        'visits': visit,
+        'day': day
+    }
+    return render(request, "show.html", context)
 
 
 def get_visit(request, slug):
@@ -18,6 +34,7 @@ def get_visit(request, slug):
     return render(request, 'get_visits.html', {'visits': visit, 'user': user})
 
 
+<<<<<<< HEAD
 # def export_users_csv(request):
 #     response = HttpResponse(content_type='text/csv')
 #     response['Content-Disposition'] = 'attachment; filename="visits.csv"'
@@ -33,6 +50,8 @@ def get_visit(request, slug):
 #     return response
 
 
+=======
+>>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
 def export_excel(request):
     response = HttpResponse(content_type='applications/mc-excel')
     response['Content-Disposition'] = 'attachment; filename="visits.xls"'
@@ -49,7 +68,11 @@ def export_excel(request):
 
     font_style = xlwt.XFStyle()
     rows = Visits.objects.all().values_list('date', 'user', 'visited', 'time_start', 'time_end', 'reason')
+<<<<<<< HEAD
 
+=======
+    print('rows', rows)
+>>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
     for row in rows:
         row_num += 1
 
@@ -58,5 +81,8 @@ def export_excel(request):
     wb.save(response)
 
     return response
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
