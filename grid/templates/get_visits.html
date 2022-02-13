@@ -7,26 +7,45 @@
         <div class="form-group row">
             <label class="col-sm-1 col-form-label"></label>
             <div class="col-sm-4">
-                <h3>СОТРИУДНИК</h3>
+                <h3>СОТРУДНИК</h3>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">ИМЯ СОТРУДНИКА:</label>
+            <label class="col-sm-2 col-form-label">ФОТО:</label>
+            <div class="col-sm-4">
+                <img src="{{ user.image.url }}" height="200">
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">ИМЯ:</label>
             <div class="col-sm-4">
                 {{ user.name }}
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Email СОТРУДНИКА:</label>
+            <label class="col-sm-2 col-form-label">ПОЗИЦИЯ:</label>
+            <div class="col-sm-4">
+                {{ user.position.title }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Email:</label>
             <div class="col-sm-4">
                 {{ user.email }}
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">КОНТАКТ СОТРУДНИКА:</label>
+            <label class="col-sm-2 col-form-label">КОНТАКТЫ:</label>
             <div class="col-sm-4">
                 {{ user.phone }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">СТЕК ТЕХНОЛОГИЙ:</label>
+            <div class="col-sm-4">
+                {{ user.steck }}
             </div>
         </div>
     </div>
@@ -59,5 +78,3 @@
 </div>
 
 {% endblock content%}
-
-
