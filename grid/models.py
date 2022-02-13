@@ -2,6 +2,13 @@ from django.db import models
 from django.urls import reverse
 
 
+class Date(models.Model):
+    day = models.DateField(auto_now_add=False)
+
+    def __str__(self):
+        return f'Дата {self.day}'
+
+
 class Employee(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
@@ -19,7 +26,7 @@ class Employee(models.Model):
 
 
 class Visits(models.Model):
-    date = models.DateField(auto_now_add=False)
+    date = models.ForeignKey(Date, on_delete=models.CASCADE)
     user = models.ForeignKey(Employee, on_delete=models.CASCADE)
     visited = models.BooleanField(default=False)
     time_start = models.TimeField(auto_now_add=False, blank=True, null=True)
@@ -27,7 +34,7 @@ class Visits(models.Model):
     reason = models.CharField(max_length=1000, blank=True, null=True)
 
     def __str__(self):
-        return f'Сотрудник {self.user.name} {self.date}'
+        return f'Сотрудник {self.user.name} {self.date.day}'
 
     class Meta:
         ordering = ['-date']
