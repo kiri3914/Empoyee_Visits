@@ -19,8 +19,9 @@
 
                 <td>{{ employee.id}}</td>
                 <td><a href="{{ employee.get_absolute_url }}">{{ employee.name}}</a></td>
-                <td>{{ employee.email}}</td>
-                <td>{{ employee.phone}}</td>
+                <td><p>{{ employee.email}}</p></td>
+                <td><p>{{ employee.phone}}</p></td>
+
             </tr>
             {%endfor%}
             </tbody>

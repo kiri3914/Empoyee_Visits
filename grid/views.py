@@ -4,7 +4,7 @@ from datetime import date as d
 import xlwt
 
 from .models import Employee, Visits
-from .forms import DateForm
+from .forms import DateForm, AddVisitForm
 
 
 def index(request):
@@ -56,3 +56,29 @@ def export_excel(request):
     wb.save(response)
 
     return response
+
+
+def add_visit(request, *args, **kwargs):
+    form = AddVisitForm
+    users = Employee.objects.all()
+    if request.method == 'POST':
+        date = request.POST['date']
+        user = request.POST['user']
+        visited = request.POST['visited']
+        time_start = request.POST['time_start']
+        time_end = request.POST['time_end']
+        reason = request.POST['reason']
+
+        ins = Visits(
+            date=date,
+            user=Employee.objects.get(slug=user),
+            visited=visited,
+            time_start=time_start,
+            time_end=time_end,
+            reason=reason
+        )
+        ins.save()
+        print('data save in db')
+        return render(request, 'add_visit.html', {'users': users})
+    else:
+        return render(request, 'add_visit.html', {'users': users})

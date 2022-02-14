@@ -66,10 +66,26 @@
             <tr>
 
                 <td>{{ visit.date }}</td>
-                <td>{{ visit.visited }}</td>
+                {% if visit.visited == True %}
+                <td>Поcетил(а)</td>
+                {% else %}
+                <td>Отсутствовал(а)</td>
+                {% endif %}
+                {% if visit.time_start %}
                 <td>{{ visit.time_start }}</td>
-                <td>{{ visit.time_end}}</td>
+                {% else %}
+                <td>----</td>
+                {% endif %}
+                {% if visit.time_end %}
+                <td>{{ visit.time_end }}</td>
+                {% else %}
+                <td>----</td>
+                {% endif %}
+                {% if visit.reason %}
                 <td>{{ visit.reason }}</td>
+                {% else %}
+                <td>----</td>
+                {% endif %}
             </tr>
             {%endfor%}
             </tbody>
