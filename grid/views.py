@@ -8,18 +8,21 @@ from .forms import DateForm
 
 
 def index(request):
-    day = d.today()
     employees = Employee.objects.all()
+    return render(request, "show.html", {'employees': employees})
+
+
+def list_visit_day(request):
+    day = d.today()
     visit = Visits.objects.filter(date=day)
     if request.method == 'POST':
         day = request.POST['day']
         visit = Visits.objects.filter(date=day)
     context = {
-        'employees': employees,
         'visits': visit,
         'day': day
     }
-    return render(request, "show.html", context)
+    return render(request, "list_visit_day.html", context)
 
 
 def get_visit(request, slug):
