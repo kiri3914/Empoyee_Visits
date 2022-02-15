@@ -1,6 +1,6 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from datetime import date as d
+from django.http import HttpResponse
 import xlwt
 
 from .models import Employee, Visits
@@ -35,7 +35,7 @@ def export_excel(request):
     response = HttpResponse(content_type='applications/mc-excel')
     response['Content-Disposition'] = 'attachment; filename="visits.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('visits.excel')
+    ws = wb.add_sheet(f'{d.today()}.excel')
     row_num = 0
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
@@ -46,8 +46,10 @@ def export_excel(request):
         ws.write(row_num, col_num, columns[col_num], font_style)
 
     font_style = xlwt.XFStyle()
-    rows = Visits.objects.all().values_list('date', 'user', 'visited', 'time_start', 'time_end', 'reason')
+    rows = Visits.objects.all().values_list('date', 'user__name', 'visited', 'time_start', 'time_end', 'reason')
+
     print('rows', rows)
+
     for row in rows:
         row_num += 1
 
@@ -78,7 +80,7 @@ def add_visit(request, *args, **kwargs):
             reason=reason
         )
         ins.save()
-        print('data save in db')
         return render(request, 'add_visit.html', {'users': users})
     else:
         return render(request, 'add_visit.html', {'users': users})
+

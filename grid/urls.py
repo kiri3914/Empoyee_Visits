@@ -9,3 +9,4 @@ urlpatterns = [
     path('add_visit/', add_visit, name='add_visit'),
 
 ]
+

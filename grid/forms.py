@@ -1,6 +1,7 @@
 from django import forms
 from .models import Visits
 
+
 class DateForm(forms.Form):
     date = forms.DateField()
 
