@@ -1,6 +1,11 @@
 from django.db import models
 from django.urls import reverse
 
+CHOICES = (
+    (True, 'Посетил(а)'),
+    (False, 'Не посетил(а)'),
+)
+
 
 class Positions(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
@@ -32,10 +37,10 @@ class Employee(models.Model):
 class Visits(models.Model):
     date = models.DateField(auto_created=False)
     user = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    visited = models.BooleanField(default=False)
-    time_start = models.TimeField(auto_now_add=False, blank=True, null=True)
-    time_end = models.TimeField(auto_now_add=False, blank=True, null=True)
-    reason = models.CharField(max_length=1000, blank=True, null=True)
+    visited = models.BooleanField(choices=CHOICES)
+    time_start = models.TimeField(auto_now_add=False, blank=True, null=True, default='00:00')
+    time_end = models.TimeField(auto_now_add=False, blank=True, null=True, default='00:00')
+    reason = models.CharField(max_length=1000, blank=True, default=' ')
 
     def __str__(self):
         return f'Сотрудник {self.user.name} {self.date}'

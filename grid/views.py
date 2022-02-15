@@ -1,16 +1,8 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from datetime import date as d
-import xlwt
-
 from .models import Employee, Visits
-<<<<<<< HEAD
-from datetime import date
 from django.http import HttpResponse
 import xlwt
-=======
-from .forms import DateForm
->>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
 
 
 def index(request):
@@ -34,29 +26,11 @@ def get_visit(request, slug):
     return render(request, 'get_visits.html', {'visits': visit, 'user': user})
 
 
-<<<<<<< HEAD
-# def export_users_csv(request):
-#     response = HttpResponse(content_type='text/csv')
-#     response['Content-Disposition'] = 'attachment; filename="visits.csv"'
-#
-#     writer = csv.writer(response)
-#     writer.writerow(['date', 'user', 'visited', 'time_start', 'time_end', 'reason'])
-#
-#     visits = Visits.objects.all()
-#
-#     for visit in visits:
-#         writer.writerow([visit.date, visit.user, visit.visited, visit.time_start, visit.time_end, visit.reason])
-#
-#     return response
-
-
-=======
->>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
 def export_excel(request):
     response = HttpResponse(content_type='applications/mc-excel')
     response['Content-Disposition'] = 'attachment; filename="visits.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('visits.excel')
+    ws = wb.add_sheet(f'{d.today()}.excel')
     row_num = 0
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
@@ -67,12 +41,10 @@ def export_excel(request):
         ws.write(row_num, col_num, columns[col_num], font_style)
 
     font_style = xlwt.XFStyle()
-    rows = Visits.objects.all().values_list('date', 'user', 'visited', 'time_start', 'time_end', 'reason')
-<<<<<<< HEAD
+    rows = Visits.objects.all().values_list('date', 'user__name', 'visited', 'time_start', 'time_end', 'reason')
 
-=======
     print('rows', rows)
->>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
+
     for row in rows:
         row_num += 1
 
@@ -81,8 +53,5 @@ def export_excel(request):
     wb.save(response)
 
     return response
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 4de1b879939bf1b159ad2351e0972c0e6babc0f9
