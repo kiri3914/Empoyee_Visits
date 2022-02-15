@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
 from datetime import date as d
-from .models import Employee, Visits
-<<<<<<< HEAD
 from django.http import HttpResponse
 import xlwt
-=======
+
+from .models import Employee, Visits
 from .forms import DateForm, AddVisitForm
->>>>>>> 70ff7d76de37f26ac1090b3f52b95b868b4482a1
 
 
 def index(request):
@@ -62,8 +60,6 @@ def export_excel(request):
     return response
 
 
-<<<<<<< HEAD
-=======
 def add_visit(request, *args, **kwargs):
     form = AddVisitForm
     users = Employee.objects.all()
@@ -84,8 +80,7 @@ def add_visit(request, *args, **kwargs):
             reason=reason
         )
         ins.save()
-        print('data save in db')
         return render(request, 'add_visit.html', {'users': users})
     else:
         return render(request, 'add_visit.html', {'users': users})
->>>>>>> 70ff7d76de37f26ac1090b3f52b95b868b4482a1
+
