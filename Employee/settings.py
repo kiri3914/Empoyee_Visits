@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'grid.apps.GridConfig'
+    'grid.apps.GridConfig',
+    'openpyxl',
 ]
 
 MIDDLEWARE = [
