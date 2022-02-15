@@ -3,6 +3,7 @@
 {% block title %}Add New Employee Records{%endblock title%}
 {% block content %}
 <div class="col-md-12">
+<<<<<<< HEAD
     <!--     за сегодня -->
     <br>
     <form action="{% url 'index' %}" method="POST">
@@ -39,6 +40,8 @@
         </table>
     </div>
 
+=======
+>>>>>>> 70ff7d76de37f26ac1090b3f52b95b868b4482a1
     <!--   ВСЕ СОТРУДНИКИ -->
     <h4>ВСЕ СОТРУДНИКИ</h4>
     <div class="table-responsive">
@@ -55,8 +58,9 @@
 
                 <td>{{ employee.id}}</td>
                 <td><a href="{{ employee.get_absolute_url }}">{{ employee.name}}</a></td>
-                <td>{{ employee.email}}</td>
-                <td>{{ employee.phone}}</td>
+                <td><p>{{ employee.email}}</p></td>
+                <td><p>{{ employee.phone}}</p></td>
+
             </tr>
             {%endfor%}
             </tbody>

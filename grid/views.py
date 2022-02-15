@@ -1,23 +1,30 @@
 from django.shortcuts import render, redirect
 from datetime import date as d
 from .models import Employee, Visits
+<<<<<<< HEAD
 from django.http import HttpResponse
 import xlwt
+=======
+from .forms import DateForm, AddVisitForm
+>>>>>>> 70ff7d76de37f26ac1090b3f52b95b868b4482a1
 
 
 def index(request):
-    day = d.today()
     employees = Employee.objects.all()
+    return render(request, "show.html", {'employees': employees})
+
+
+def list_visit_day(request):
+    day = d.today()
     visit = Visits.objects.filter(date=day)
     if request.method == 'POST':
         day = request.POST['day']
         visit = Visits.objects.filter(date=day)
     context = {
-        'employees': employees,
         'visits': visit,
         'day': day
     }
-    return render(request, "show.html", context)
+    return render(request, "list_visit_day.html", context)
 
 
 def get_visit(request, slug):
@@ -55,3 +62,30 @@ def export_excel(request):
     return response
 
 
+<<<<<<< HEAD
+=======
+def add_visit(request, *args, **kwargs):
+    form = AddVisitForm
+    users = Employee.objects.all()
+    if request.method == 'POST':
+        date = request.POST['date']
+        user = request.POST['user']
+        visited = request.POST['visited']
+        time_start = request.POST['time_start']
+        time_end = request.POST['time_end']
+        reason = request.POST['reason']
+
+        ins = Visits(
+            date=date,
+            user=Employee.objects.get(slug=user),
+            visited=visited,
+            time_start=time_start,
+            time_end=time_end,
+            reason=reason
+        )
+        ins.save()
+        print('data save in db')
+        return render(request, 'add_visit.html', {'users': users})
+    else:
+        return render(request, 'add_visit.html', {'users': users})
+>>>>>>> 70ff7d76de37f26ac1090b3f52b95b868b4482a1
